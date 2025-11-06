@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestão de Estoque</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h2>Gestão de Estoque</h2>
+    <button id="gestaoEstoqueBtn">Voltar ao Menu Principal</button>
+  </header>
+
+  <div class="container">
+    <h3>Movimentação de Estoque</h3>
+
+    <!-- Selecionar produto -->
+    <label for="produtoSelect">Selecione o produto:</label>
+    <select id="produtoSelect" required></select>
+
+    <!-- Tipo de movimentação -->
+    <label for="tipoMovimentacao">Tipo de movimentação:</label>
+    <select id="tipoMovimentacao" required>
+      <option value="">-- Selecione --</option>
+      <option value="entrada">Entrada</option>
+      <option value="saida">Saída</option>
+    </select>
+
+    <!-- Quantidade -->
+    <label for="quantidadeMov">Quantidade:</label>
+    <input type="number" id="quantidadeMov" placeholder="Quantidade" min="1" required>
+
+    <!-- Data -->
+    <label for="dataMovimentacao">Data da movimentação:</label>
+    <input type="date" id="dataMovimentacao" required>
+
+    <button onclick="registrarMovimentacao()">Registrar Movimentação</button>
+
+    <hr>
+
+    <h3>Estoque Atual</h3>
+    <table id="tabelaEstoque">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Preço (R$)</th>
+          <th>Qtd</th>
+          <th>Validade</th>
+          <th>Cor</th>
+          <th>Textura</th>
+          <th>Material</th>
+          <th>Peso</th>
+          <th>Unidade</th>
+          <th>Aplicação</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
