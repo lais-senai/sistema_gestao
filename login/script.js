@@ -30,7 +30,9 @@ function validarCadastro() {
          // Se tudo estiver certo
     alert("Cadastro validado com sucesso!");
 
+    // armazena dados localmente
       localStorage.setItem("usuarioLogado", nome);
+
     // Abre a nova página em uma nova aba
     window.open("../tela_inicial/index.html", "_blank");
 
