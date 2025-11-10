@@ -19,7 +19,7 @@ function validarCadastro() {
             return false;
         }
 
-        // Validação Senha Forte: A regex que você forneceu
+        // Validação Senha Forte
         var regexSenha = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d\W]{8,}$/;
         if (senha.length < 8 || !regexSenha.test(senha)) {
             alert("Senha fraca! (Requisitos: Mínimo de 8 caracteres, com pelo menos uma Maiúscula, uma Minúscula e um Número).");
@@ -27,7 +27,7 @@ function validarCadastro() {
             return false;
         }
 
-         // ✅ Se tudo estiver certo
+         // Se tudo estiver certo
     alert("Cadastro validado com sucesso!");
 
       localStorage.setItem("usuarioLogado", nome);
