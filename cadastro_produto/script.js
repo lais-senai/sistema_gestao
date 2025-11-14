@@ -5,7 +5,12 @@ document.getElementById("cadastroProdutoBtn").addEventListener("click", () => {
 
 // Recupera produtos do localStorage
 function carregarProdutos() {
-  return JSON.parse(localStorage.getItem("produtos")) || [];
+  //carregamento seguro
+  let dados = JSON.parse(localStorage.getItem("produtos")) || [];
+
+  dados = dados.filter(p => p && typeof p === "object" && p.nome);
+
+  return dados;
 }
 
 // Salva produtos no localStorage
