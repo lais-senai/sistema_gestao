@@ -5,9 +5,11 @@ document.getElementById("cadastroProdutoBtn").addEventListener("click", () => {
 
 // Recupera produtos do localStorage
 function carregarProdutos() {
+    // Busca os dados no localStorage e converte de JSON para array
   //carregamento seguro
   let dados = JSON.parse(localStorage.getItem("produtos")) || [];
 
+    // Filtro de segurança: remove valores inválidos
   dados = dados.filter(p => p && typeof p === "object" && p.nome);
 
   return dados;
@@ -15,6 +17,7 @@ function carregarProdutos() {
 
 // Salva produtos no localStorage
 function salvarProdutos(produtos) {
+    // Converte o array para JSON e salva no localStorage
   localStorage.setItem("produtos", JSON.stringify(produtos));
 }
 
@@ -51,6 +54,7 @@ function exibirProdutos() {
 
 // Função para adicionar ou editar produto
 function adicionarOuEditarProduto() {
+    // Recupera valores do formulário
   const id = document.getElementById("produtoId").value;
   const nome = document.getElementById("nomeProduto").value.trim();
   const preco = parseFloat(document.getElementById("precoProduto").value);
@@ -64,7 +68,7 @@ function adicionarOuEditarProduto() {
   const unidade = document.getElementById("unidadeMedida").value;
   const aplicacao = document.getElementById("aplicacaoProduto").value;
 
-  // 🔍 Validações básicas
+  //  Validações básicas
   if (!nome) {
     alert("Por favor, insira o nome do produto!");
     return false;
@@ -92,6 +96,7 @@ function adicionarOuEditarProduto() {
 
   const produtos = carregarProdutos();
 
+    // Cria objeto do produto
   const novoProduto = {
     nome,
     preco,
@@ -105,16 +110,19 @@ function adicionarOuEditarProduto() {
     aplicacao
   };
 
+    // Se há ID é edição
   if (id) {
     produtos[id] = novoProduto;
     alert("Produto atualizado com sucesso!");
-  } else {
+  }
+    // Caso contrário - cadastro novo
+  else {
     produtos.push(novoProduto);
     alert("Produto cadastrado com sucesso!");
   }
 
-  salvarProdutos(produtos);
-  exibirProdutos();
+  salvarProdutos(produtos);// Salva no localStorage
+  exibirProdutos();// Atualiza tabela
   limparFormulario();
   return false;
 }
@@ -124,6 +132,7 @@ function editarProduto(index) {
   const produtos = carregarProdutos();
   const produto = produtos[index];
 
+   // Preenche os campos com os dados armazenados
   document.getElementById("produtoId").value = index;
   document.getElementById("nomeProduto").value = produto.nome;
   document.getElementById("precoProduto").value = produto.preco;
@@ -135,6 +144,8 @@ function editarProduto(index) {
   document.getElementById("pesoProduto").value = produto.peso || "";
   document.getElementById("unidadeMedida").value = produto.unidade || "";
   document.getElementById("aplicacaoProduto").value = produto.aplicacao || "";
+
+    // Altera texto do botão principal
   document.getElementById("botaoCadastrar").textContent = "Salvar Alterações";
 }
 
@@ -143,9 +154,9 @@ function excluirProduto(index) {
   const produtos = carregarProdutos();
 
   if (confirm(`Tem certeza que deseja excluir o produto "${produtos[index].nome}"?`)) {
-    produtos.splice(index, 1);
-    salvarProdutos(produtos);
-    exibirProdutos();
+    produtos.splice(index, 1);// Remove 1 item do array
+    salvarProdutos(produtos);// Atualiza localStorage
+    exibirProdutos();// Atualiza tabela
     alert("Produto excluído com sucesso!");
   }
 }
@@ -157,6 +168,7 @@ function buscarProduto() {
   const tabela = document.querySelector("#tabelaProdutos tbody");
   tabela.innerHTML = "";
 
+  // Filtra produtos pelo nome
   produtos
     .filter(produto => produto.nome.toLowerCase().includes(termo))
     .forEach((produto, index) => {
@@ -184,10 +196,12 @@ function buscarProduto() {
 
 // Limpar formulário
 function limparFormulario() {
-  document.querySelector("form").reset();
-  document.getElementById("produtoId").value = "";
-  document.getElementById("botaoCadastrar").textContent = "Cadastrar";
+  document.querySelector("form").reset();// Reseta inputs
+  document.getElementById("produtoId").value = "";// Remove ID oculto
+  document.getElementById("botaoCadastrar").textContent = "Cadastrar"; // Volta nome do botão
 }
 
 // Inicializa
+// Quando a página terminar de carregar,
+// os produtos serão exibidos automaticamente na tabela
 document.addEventListener("DOMContentLoaded", exibirProdutos);
