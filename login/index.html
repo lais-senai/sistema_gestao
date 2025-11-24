@@ -5,7 +5,103 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ===== RESET E BASE ===== */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #eef2f7; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; 
+            min-height: 100vh;
+        }
+
+        /* ===== CONTAINER PRINCIPAL ===== */
+        #centralizar {
+            background-color: #ffffff;
+            margin: 60px 20px;
+            padding: 40px 50px;
+            width: 450px; 
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            text-align: left;
+        }
+
+        /* ===== LEGEND ===== */
+        legend {
+            font-size: 1.6rem;
+            color: #2c3e50; 
+            font-weight: 700;
+            text-align: center;
+            display: block;
+            margin-bottom: 25px;
+        }
+
+        /* ===== LABEL ===== */
+        label {
+            font-weight: 600;
+            color: #34495e; 
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+
+        /* ===== INPUT ===== */
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #3498db; 
+            box-shadow: 0 0 5px rgba(52,152,219,0.3);
+            outline: none;
+        }
+
+        /* ===== BOTÕES ===== */
+        button {
+            width: 100%;
+            background-color: #3a5f78; 
+            color: white;
+            border: none;
+            padding: 14px;
+            margin-top: 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #3e6988; /* hover mais escuro */
+            transform: translateY(-2px);
+        }
+
+        /* ===== RESPONSIVIDADE ===== */
+        @media (max-width: 600px) {
+            #centralizar {
+                width: 90%;
+                padding: 30px 20px;
+            }
+            
+            legend {
+                font-size: 1.4rem;
+            }
+            
+            button {
+                padding: 12px;
+                font-size: 0.95rem;
+            }
+        }
+    </style>
 </head>
 <body>
    <div id="centralizar">
