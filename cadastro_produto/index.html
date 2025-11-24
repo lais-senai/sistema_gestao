@@ -1,31 +1,44 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro de Produtos</title>
   <link rel="stylesheet" href="style.css"> 
 </head>
+
 <body>
+
+  <!-- Cabeçalho da página -->
   <header>
     <h2>Cadastro de Produto</h2>
     <button id="cadastroProdutoBtn">Voltar ao Menu Principal</button>
   </header>
 
+
+  <!-- Conteúdo principal da página -->
   <div class="container">
     <h3>Gerenciar Produtos</h3>
 
+    <!-- Campo de busca para filtrar produtos -->
     <div class="topo">
       <input type="text" id="busca" placeholder="Buscar produto..." onkeyup="buscarProduto()">
     </div>
 
+
+    <!-- Formulário de cadastro e edição de produtos -->
+    <!-- onsubmit chama uma função JavaScript que trata o cadastro -->
     <form onsubmit="return adicionarOuEditarProduto()">
+            <!-- Campo oculto que armazena o ID do produto (usado na edição) -->
       <input type="hidden" id="produtoId">
 
+          <!-- Campos de entrada dos dados do produto -->
       <input type="text" id="nomeProduto" placeholder="Nome do produto" required>
       <input type="number" id="precoProduto" placeholder="Preço" required step="0.01">
       <input type="number" id="quantidadeProduto" placeholder="Quantidade" required>
 
+            <!-- Campos opcionais com mais detalhes do produto -->
       <input type="date" id="validadeProduto" placeholder="Data de validade">
       <input type="text" id="corProduto" placeholder="Cor">
       <input type="text" id="texturaProduto" placeholder="Textura (ex: fosca, brilhante)">
@@ -40,6 +53,8 @@
         <option value="un">un</option>
       </select>
 
+      
+      <!-- Seleção da aplicação do produto na obra -->
       <select id="aplicacaoProduto" required>
         <option value="">Selecione a aplicação</option>
         <option value="fundacao">Fundação</option>
@@ -47,12 +62,16 @@
         <option value="acabamento">Acabamento</option>
       </select>
 
+      
+      <!-- Botão para enviar o formulário (cadastrar ou editar) -->
       <button type="submit" id="botaoCadastrar">Cadastrar</button>
     </form>
 
+        <!-- Tabela que lista todos os produtos cadastrados -->
     <table id="tabelaProdutos">
       <thead>
         <tr>
+              <!-- Tabela que lista todos os produtos cadastrados -->
           <th>ID</th>
           <th>Nome</th>
           <th>Preço (R$)</th>
@@ -64,6 +83,7 @@
           <th>Peso</th>
           <th>Unidade</th>
           <th>Aplicação</th>
+           <!-- Edição / exclusão -->
           <th>Ações</th>
         </tr>
       </thead>
@@ -73,4 +93,5 @@
 
   <script src="script.js"></script>
 </body>
+
 </html>
