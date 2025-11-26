@@ -4,58 +4,23 @@
 // 1. Inicia a sessão
 session_start();
 
-// =====================================
-// 2. CONFIGURAÇÃO E CONEXÃO COM O BANCO (MySQLi)
-//    (DEFINIDO DIRETAMENTE AQUI, JÁ QUE conexao.php NÃO EXISTE)
-// =====================================
-$host = "localhost";
-$user = "root";
-$pass = ""; // Sua senha do MySQL
-$db   = "almoxarifado"; // Nome do seu banco de dados
-
-// Tenta estabelecer a conexão
-$conn = mysqli_connect($host, $user, $pass, $db);
-
-if ($conn->connect_error) {
-    // Se houver erro, para o script
-    die("Desculpe, não foi possível conectar ao banco de dados. Erro: " . $conn->connect_error);
+// 2. Verificar se o usuário está logado
+if (!isset($_SESSION['id_usuario'])) {
+    // Se não estiver logado, redireciona para a tela de login
+    header("Location: ../login/index.php");
+    exit;
 }
 
-// // 3. Verificar se o usuário está logado
-// if (!isset($_SESSION['id_login'])) {
-//     // Se não estiver logado, redireciona para a tela de login
-//     // Certifique-se de que a tela de login está na mesma pasta (login.php)
-//     header("Location: ../login/index.php");
-//     exit;
-// }
+// 3. Lógica de Logout
+if (isset($_GET['logout'])) {
+    session_destroy();
+    header("Location: ../login/index.php");
+    exit;
+}
 
-// $idLogin = $_SESSION['id_login'];
+// 4. Pega o nome do usuário da sessão
+$nomeUsuario = isset($_SESSION['nome_usuario']) ? htmlspecialchars($_SESSION['nome_usuario']) : 'Usuário';
 
-// ==================================================
-// 4. Buscar dados do usuário (MySQLi Prepared Statement para segurança)
-// ==================================================
-$sql = "SELECT nome_login FROM login WHERE id_login = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $idLogin); // 'i' para integer
-$stmt->execute();
-$result = $stmt->get_result();
-$usuario = $result->fetch_assoc();
-
-// // Se por algum motivo o login não existir mais (segurança extra)
-// if (!$usuario) {
-//     session_destroy();
-//     header("Location: ../login/index.php");
-//     exit;
-// }
-
-// // 5. Lógica de Logout
-// if (isset($_GET['logout'])) {
-//     session_destroy();
-//     header("Location: ../login/index.php");
-//     exit;
-// }
-
-$conn->close(); // Fecha a conexão após buscar os dados
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -72,10 +37,9 @@ $conn->close(); // Fecha a conexão após buscar os dados
     <header>
         <h2>Sistema de Gestão</h2>
         <div class="user-info">
-            Usuário: <span> Pessoa </span>
-            <!-- Logica de aparecer o usuario ao logar -> echo htmlspecialchars($usuario['nome_login']);  -->
+            Usuário: <span><?php echo $nomeUsuario; ?></span>
 
-            <button id="logoutBtn" onclick="window.location.href='../'">Logout</button>
+            <button id="logoutBtn" onclick="window.location.href='?logout=true'">Logout</button>
 
         </div>
     </header>
