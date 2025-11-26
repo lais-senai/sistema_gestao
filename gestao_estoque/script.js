@@ -1,6 +1,6 @@
 // Botão para voltar à tela inicial
 document.getElementById("gestaoEstoqueBtn").addEventListener("click", () => {
-  window.location.href = "../tela_inicial/index.html";
+  window.location.href = "../tela_inicial/index.php";
 });
 
 // ----- Carregar produtos do "banco" (localStorage) -----

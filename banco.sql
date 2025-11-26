@@ -1,0 +1,1 @@
+SELECT * FROM almoxarifado.gestao_estoque;

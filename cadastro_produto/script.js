@@ -1,15 +1,15 @@
 // Botão para voltar à tela inicial
 document.getElementById("cadastroProdutoBtn").addEventListener("click", () => {
-  window.location.href = "../tela_inicial/index.html";
+  window.location.href = "../tela_inicial/index.php";
 });
 
 // Recupera produtos do localStorage
 function carregarProdutos() {
-    // Busca os dados no localStorage e converte de JSON para array
+  // Busca os dados no localStorage e converte de JSON para array
   //carregamento seguro
   let dados = JSON.parse(localStorage.getItem("produtos")) || [];
 
-    // Filtro de segurança: remove valores inválidos
+  // Filtro de segurança: remove valores inválidos
   dados = dados.filter(p => p && typeof p === "object" && p.nome);
 
   return dados;
@@ -17,7 +17,7 @@ function carregarProdutos() {
 
 // Salva produtos no localStorage
 function salvarProdutos(produtos) {
-    // Converte o array para JSON e salva no localStorage
+  // Converte o array para JSON e salva no localStorage
   localStorage.setItem("produtos", JSON.stringify(produtos));
 }
 
@@ -42,9 +42,9 @@ function exibirProdutos() {
       <td>${produto.peso ? produto.peso + " " + produto.unidade : "-"}</td>
       <td>${produto.unidade || "-"}</td>
       <td>${produto.aplicacao || "-"}</td>
-      <td>
+      <td class="acoes">
         <button onclick="editarProduto(${index})">Editar</button>
-        <button onclick="excluirProduto(${index})">Excluir</button>
+        <button onclick="excluirProduto(${index})" class="delete" name='deletar'>Excluir</button>
       </td>
     `;
 
@@ -54,7 +54,7 @@ function exibirProdutos() {
 
 // Função para adicionar ou editar produto
 function adicionarOuEditarProduto() {
-    // Recupera valores do formulário
+  // Recupera valores do formulário
   const id = document.getElementById("produtoId").value;
   const nome = document.getElementById("nomeProduto").value.trim();
   const preco = parseFloat(document.getElementById("precoProduto").value);
@@ -96,7 +96,7 @@ function adicionarOuEditarProduto() {
 
   const produtos = carregarProdutos();
 
-    // Cria objeto do produto
+  // Cria objeto do produto
   const novoProduto = {
     nome,
     preco,
@@ -110,12 +110,12 @@ function adicionarOuEditarProduto() {
     aplicacao
   };
 
-    // Se há ID é edição
+  // Se há ID é edição
   if (id) {
     produtos[id] = novoProduto;
     alert("Produto atualizado com sucesso!");
   }
-    // Caso contrário - cadastro novo
+  // Caso contrário - cadastro novo
   else {
     produtos.push(novoProduto);
     alert("Produto cadastrado com sucesso!");
@@ -132,7 +132,7 @@ function editarProduto(index) {
   const produtos = carregarProdutos();
   const produto = produtos[index];
 
-   // Preenche os campos com os dados armazenados
+  // Preenche os campos com os dados armazenados
   document.getElementById("produtoId").value = index;
   document.getElementById("nomeProduto").value = produto.nome;
   document.getElementById("precoProduto").value = produto.preco;
@@ -145,7 +145,7 @@ function editarProduto(index) {
   document.getElementById("unidadeMedida").value = produto.unidade || "";
   document.getElementById("aplicacaoProduto").value = produto.aplicacao || "";
 
-    // Altera texto do botão principal
+  // Altera texto do botão principal
   document.getElementById("botaoCadastrar").textContent = "Salvar Alterações";
 }
 
@@ -185,10 +185,10 @@ function buscarProduto() {
         <td>${produto.peso ? produto.peso + " " + produto.unidade : "-"}</td>
         <td>${produto.unidade || "-"}</td>
         <td>${produto.aplicacao || "-"}</td>
-        <td>
-          <button onclick="editarProduto(${index})">Editar</button>
-          <button onclick="excluirProduto(${index})">Excluir</button>
-        </td>
+      <td class="acoes">
+        <button onclick="editarProduto(${index})">Editar</button>
+        <button onclick="excluirProduto(${index})" class="delete">Excluir</button>
+      </td>
       `;
       tabela.appendChild(tr);
     });
