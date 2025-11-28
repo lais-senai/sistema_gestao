@@ -44,7 +44,7 @@ if (isset($_POST['registrar'])) {
     $dadosProduto = $resultCheck->fetch_assoc();
 
     if ($dadosProduto && $quantidade > $dadosProduto['quantidade_cp']) {
-      $mensagem = "<script>alert('ERRO: Saldo insuficiente! Você tem {$dadosProduto['quantidade_cp']} e tentou retirar {$quantidade}.');</script>";
+      $mensagem = "<script>alert('ERRO: Estoque insuficiente! Você tem {$dadosProduto['quantidade_cp']} e tentou retirar {$quantidade}.');</script>";
       $podeRegistrar = false;
     } else {
       // Se tem saldo, torna o número negativo para o cálculo
@@ -71,7 +71,18 @@ if (isset($_POST['registrar'])) {
       $stmtUpdate->bind_param("ii", $quantidade, $produto_id);
       $stmtUpdate->execute();
 
-      $mensagem = "<script>alert('Movimentação registrada com sucesso!'); window.location.href = window.location.href;</script>";
+      // Verifica estoque mínimo após atualização
+      $queryVerify = $conn->prepare("SELECT quantidade_cp FROM cadastro_produtos WHERE id_cp = ?");
+      $queryVerify->bind_param("i", $produto_id);
+      $queryVerify->execute();
+      $resultVerify = $queryVerify->get_result();
+      $dadosVerify = $resultVerify->fetch_assoc();
+
+      if($dadosVerify['quantidade_cp'] <= 5){
+        $mensagem = "<script>alert('⚠️ Atenção: o estoque está abaixo ou igual ao mínimo (5).');</script>";
+      } else {
+        $mensagem = "<script>alert('Movimentação registrada com sucesso!');</script>";
+      }
     } else {
       $mensagem = "<script>alert('Erro ao registrar movimentação!');</script>";
     }
