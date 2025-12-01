@@ -84,12 +84,12 @@ function registrarMovimentacao() {
       return;
     }
     produto.quantidade -= quantidade;
+  }
 
-    // Verificação automática de estoque mínimo
-    const estoqueMinimo = 5;
-    if (produto.quantidade < estoqueMinimo) {
-      alert(`⚠️ Atenção: o estoque de "${produto.nome}" está abaixo do mínimo (${estoqueMinimo}).`);
-    }
+  // Verificação automática de estoque mínimo (após qualquer movimentação)
+  const estoqueMinimo = 5;
+  if (produto.quantidade <= 5) {
+    alert(`⚠️ Atenção: o estoque de "${produto.nome}" está abaixo ou igual ao mínimo (${estoqueMinimo}).`);
   }
 
   // Salva e atualiza exibição
