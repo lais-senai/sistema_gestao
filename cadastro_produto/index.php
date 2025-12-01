@@ -46,10 +46,13 @@ if (isset($_POST['operacao'])) {
             (nome_produto_cp, preco_cp, quantidade_cp, data_cp, cor_cp, textura_cp, 
             material_fabricacao_cp, peso_cp, unidade_cp, aplicacao_cp)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            //Os ? são espaços vazios onde o PHP vai colocar os valores depois.
+            //PREPARE STATEMENT = QUESTOES DE SEGURANCA 
 
+            
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sdissssiss", $nome, $preco, $quantidade, $data, $cor, $textura, $material, $peso, $unidade, $aplicacao);
-
+//bind_param() diz quais variáveis vão entrar em cada ? e informa o tipo de dado
         if ($stmt->execute()) {
             header("Location: index.php?status=cadastro_sucesso");
             exit();
