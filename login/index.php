@@ -7,7 +7,7 @@ session_start();
 $host = "localhost";
 $user = "root";
 $pass = "";
-$db   = "almoxarifado"; // coloque o nome correto do seu banco
+$db   = "almoxarifado"; 
 
 $conn = mysqli_connect($host, $user, $pass, $db);
 
